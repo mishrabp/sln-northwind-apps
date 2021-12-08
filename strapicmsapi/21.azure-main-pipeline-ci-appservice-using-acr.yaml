@@ -1,0 +1,151 @@
+# Node.js
+# Build a strapi CMS Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript 
+
+# Pipeline deploys to Azure AppSerice 
+
+trigger:
+- main
+
+#what to clean up before the job runs (outputs | resources | all)
+pool:
+  name: "MyBuildAgents"
+  vmImage: ubuntu-latest
+  demand: node.js
+
+variables:
+- group: PipelineVariableGroup
+#Build & Deployment flags used for debugging & troubleshooting
+- name: bBuildDockerImage
+  value: true 
+- name: bBuildInfrastructure
+  value: true 
+- name: bDeployToDev
+  value: false 
+- name: bDeployToQA
+  value: true 
+#Pipeline Variables
+- name: appServicePlan
+  value: 'node-strapi-cms-sp' 
+- name: appServicePrefix
+  value: 'node-strapi-cms' 
+- name: resourceGroup
+  value: 'node-strapi-cms-rg' 
+- name: resourceLocation
+  value: 'West US 2' 
+- name: subscription
+  value: 'Visual Studio Enterprise Subscription - 113136' 
+- name: webAppName
+  value: 'node-strapi-cms-dev'
+- name: webAppQAName
+  value: 'node-strapi-cms-qa'
+#Terraform Storage Variables
+- name: terraformContainer
+  value: 'node-strapi-cms-terraform' 
+- name: terraformStorageAccount
+  value: 'terraformsabibhu2021' 
+- name: terraformStorageRG
+  value: 'terraformstoragergp' 
+#Azure Container Registry Variables
+- name: privateContainerRegistry
+  value: 'docker-azure-registry-private'
+- name: privateRepository
+  value: 'node-strapi-cms'
+- name: containerName
+  value: 'bpm2021acr.azurecr.io/node-strapi-cms:latest'
+
+stages:
+- stage: Build
+  displayName: 'Stage: Build Image'
+  jobs:
+  - job: Dockerize
+    displayName: 'Downloading code....'
+    pool:
+      name: "MyBuildAgents"
+    condition:  eq('${{ variables.bBuildDockerImage }}', true)
+    steps:
+    - task: Docker@2
+      displayName: 'Login to ACR'
+      inputs:
+        command: login
+        containerRegistry: ${{ variables.privateContainerRegistry }}
+    - task: Docker@2
+      displayName: 'Public Docker Image to ACR....'
+      inputs:
+        command: 'buildAndPush'
+        containerRegistry: ${{ variables.privateContainerRegistry }}
+        repository: ${{ variables.privateRepository }}
+        Dockerfile: '$(System.DefaultWorkingDirectory)/**/Dockerfile'
+        tags: ${{ variables.tagName }}
+        addPipelineData: false
+
+- stage: Infrastructure
+  displayName: 'Stage: Build Infrastructure'
+  condition: eq('${{ variables.bBuildInfrastructure }}', true) 
+  jobs:
+  - template: 22.azure-sub-pipeline-setup-appservice-infrastructure.yaml
+    parameters:
+      subscription: ${{ variables.subscription }}
+      terraformstoragerg: ${{ variables.terraformStorageRG }}
+      terraformstorageaccount: ${{ variables.terraformStorageAccount }}
+      terraformcontainer: ${{ variables.terraformContainer }}
+
+- stage: DeployDev
+  displayName: 'Stage: Deploy Development'
+  condition: eq('${{ variables.bDeployToDev }}', true) 
+  jobs:
+  - job: Deploy
+    displayName: 'Deploying Image....'
+    steps:
+    - task: AzureWebAppContainer@1
+      displayName: 'Publish container to App Service....'
+      inputs:
+        azureSubscription: ${{ variables.subscription }}
+        resourceGroupName: ${{ variables.resourceGroup }}
+        appName: ${{ variables.webAppName }}
+        imageName: ${{ variables.containerName }}
+        containerCommand: 'npm start'
+        #Deploying to staging slot
+#        deployToSlotOrASE: true
+#        slotName: 'staging'
+#    - task: AzureAppServiceManage@0
+#      displayName: 'Swap the staging slot with production (Blue-Green Deployment)'
+#      inputs:
+#        azureSubscription: '${{ variables.subscription }}'
+#        webAppName: ${{ variables.webAppName }}
+#        resourceGroupName: ${{ variables.resourceGroup }}
+#        sourceSlot: 'staging'
+#        swapWithProduction: true
+- stage: DeployQA
+  displayName: 'Stage: Deploy QA'
+  condition: eq('${{ variables.bDeployToQA }}', true) 
+  jobs:
+  - job: Deploy
+    displayName: 'Deploying Image....'
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Publish container to App Service....'
+      inputs:
+        connectionType: 'AzureRM'
+        azureSubscription: ${{ variables.subscription }}
+        resourceGroupName: ${{ variables.resourceGroup }}
+        appType: 'webAppContainer'  #its webApp for windows based apps. webAppLinux for linux based apps
+        webAppName: ${{ variables.webAppQAName }}
+        dockerNamespace: 'bpm2021acr.azurecr.io' #variable translates to <_my_container_registry_.azurecr.io>
+        dockerRepository: 'node-strapi-cms' #variable for the **Image** I set in the App Service
+        dockerImageTag: 'latest' 
+        #Deploying to staging slot
+        deployToSlotOrASE: true
+        slotName: 'staging'
+    - task: AzureAppServiceManage@0
+      displayName: 'Swap the staging slot with production (Blue-Green Deployment)'
+      inputs:
+        azureSubscription: '${{ variables.subscription }}'
+        appType: 'webAppContainer'
+        webAppName: ${{ variables.webAppQAName }}
+        resourceGroupName: ${{ variables.resourceGroup }}
+        sourceSlot: 'staging'
+        swapWithProduction: true
+
+

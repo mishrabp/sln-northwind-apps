@@ -1,0 +1,73 @@
+# Pipeline destroys infrastrucure
+
+trigger: none
+
+schedules:
+  - cron: "00 15 * * *"
+    displayName: Daily 10:00 AM CT
+    branches:
+      include: 
+      - main
+    always: true
+  - cron: "00 03 * * *"
+    displayName: Daily 10:00 PM CT
+    branches:
+      include: 
+      - main
+    always: true
+
+#what to clean up before the job runs (outputs | resources | all)
+pool:
+  name: "MyBuildAgents"
+  vmImage: ubuntu-latest
+  demand: node.js
+
+variables:
+- group: PipelineVariableGroup
+#Terraform Storage Variables
+- name: subscription
+  value: 'Visual Studio Enterprise Subscription - 113136' 
+- name: terraformContainer
+  value: 'node-strapi-cms-terraform' 
+- name: terraformStorageAccount
+  value: 'terraformsabibhu2021' 
+- name: terraformStorageRG
+  value: 'terraformstoragergp' 
+- name: artifactName
+  value: 'drop' 
+
+stages:
+- stage: Build
+  displayName: "Stage: Download Code"
+  jobs:
+  - job: Copy
+    displayName: 'Copy Code' 
+    steps:
+    - task: CopyFiles@2
+      displayName: 'Copy application code to www folder'
+      inputs:
+        preserveTimestamp: true
+        cleanTargetFolder: true  
+        sourceFolder: '$(System.DefaultWorkingDirectory)'
+        targetFolder: '$(build.artifactstagingdirectory)/www'
+    - task: CopyFiles@2
+      displayName: 'Copy terrraform files to terraform folder'
+      inputs:
+        SourceFolder: terraform
+        TargetFolder: '$(build.artifactstagingdirectory)/terraform'
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifacts & Binaries to the drop folder'
+      inputs:
+        targetPath: '$(build.artifactstagingdirectory)'
+        artifact: ${{ variables.artifactName }}
+        publishLocation: 'pipeline'
+
+- stage: Infrastructure
+  displayName: 'Stage: Destroy Infrastructure'
+  jobs:
+  - template: 92.azure-sub-pipeline-unsetup-appservice-infrastructure.yaml
+    parameters:
+      subscription: ${{ variables.subscription }}
+      terraformstoragerg: ${{ variables.terraformStorageRG }}
+      terraformstorageaccount: ${{ variables.terraformStorageAccount }}
+      terraformcontainer: ${{ variables.terraformContainer }}

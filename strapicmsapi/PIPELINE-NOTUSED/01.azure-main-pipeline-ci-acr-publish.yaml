@@ -1,0 +1,121 @@
+# Node.js
+# Build a strapi CMS Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript 
+
+# Pipelibe only build docker image,  upload to ACR@113136, and Deploy to AKS@113136
+
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - '01.azure-main-pipeline-ci-acr-publish.yaml' # same as '/' for the repository root
+
+#what to clean up before the job runs (outputs | resources | all)
+pool:
+  name: "MyBuildAgents"
+  vmImage: ubuntu-latest
+  demand: node.js
+
+variables:
+- group: PipelineVariableGroup
+#Build & Deployment flags used for debugging & troubleshooting
+- name: bBuildDockerImage
+  value: true 
+- name: bDeployToQA
+  value: true
+#Pipeline Variables
+- name: appServicePlan
+  value: 'node-strapi-cms-sp' 
+- name: appServicePrefix
+  value: 'node-strapi-cms' 
+- name: resourceGroup
+  value: 'node-strapi-cms-rg' 
+- name: resourceLocation
+  value: 'West US 2' 
+- name: subscription
+  value: 'Visual Studio Enterprise Subscription - 113136' 
+- name: artifactName
+  value: 'drop'
+#Terraform Storage Variables
+- name: terraformContainer
+  value: 'node-strapi-cms-terraform' 
+- name: terraformStorageAccount
+  value: 'terraformsabibhu2021' 
+- name: terraformStorageRG
+  value: 'terraformstoragergp' 
+#Container & K8 Variables
+- name: privateContainerRegistry
+  value: 'docker-azure-registry-private'
+- name: privateRepository
+  value: 'node-strapi-cms'
+- name: tagName
+  value: 'latest'
+
+
+stages:
+- stage: Download
+  displayName: "Download Code from GitHub"
+  jobs:
+  - job: Download
+    displayName: 'Downloading Code....' 
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.x'
+      displayName: 'Install NodeJS Runtime'
+    - task: CopyFiles@2
+      displayName: 'Copy application code to k8 folder'
+      inputs:
+        preserveTimestamp: true
+        cleanTargetFolder: true  
+        sourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          *k8*.yaml
+        targetFolder: '$(build.artifactstagingdirectory)/k8'
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifacts & Binaries to the drop folder'
+      inputs:
+        targetPath: '$(build.artifactstagingdirectory)'
+        artifact: ${{ variables.artifactName }}
+        publishLocation: 'pipeline'
+  
+  - job: Dockerize
+    displayName: 'Building Docker Image....'
+    pool:
+      name: "MyBuildAgents"
+    condition:  eq('${{ variables.bBuildDockerImage }}', true)
+    dependsOn: Download
+    steps:
+    - task: Docker@2
+      displayName: 'Login to ACR'
+      inputs:
+        command: login
+        containerRegistry: ${{ variables.privateContainerRegistry }}
+    - task: Docker@2
+      displayName: 'Public Docker Image to ACR....'
+      inputs:
+        command: 'buildAndPush'
+        containerRegistry: ${{ variables.privateContainerRegistry }}
+        repository: ${{ variables.privateRepository }}
+        Dockerfile: '$(System.DefaultWorkingDirectory)/**/Dockerfile'
+        tags: ${{ variables.tagName }}
+
+- stage: QA
+  displayName: 'Deploy Image to AKS'
+  condition: eq('${{ variables.bDeployToQA }}', true) 
+  pool:
+    name: "MyBuildAgents"
+  dependsOn: 
+  - Download
+  variables: 
+    Environment: QA
+  jobs:
+  - template: 02.azure-sub-pipeline-deploy-to-aks-cluster.yaml
+    parameters:
+      environment: ${{ variables.environment }} 
+      webAppName: '${{ variables.appServicePrefix }}-qa'
+      subscription: ${{ variables.subscription }}
+

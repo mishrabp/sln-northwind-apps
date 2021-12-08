@@ -29,7 +29,12 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".dockerignore">
+      <SubType>Content</SubType>
+      <DependentUpon>Dockerfile</DependentUpon>
+    </Content>
     <Content Include="app.js" />
+    <None Include="Dockerfile" />
     <Content Include="routes\index.js" />
     <Content Include="routes\users.js" />
     <Content Include="package.json" />
