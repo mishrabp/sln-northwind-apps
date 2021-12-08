@@ -1,9 +1,0 @@
-{
-  "name": "nodenorthwindapi",
-  "version": "0.0.0",
-  "description": "nodenorthwindapi",
-  "main": "server.js",
-  "author": {
-    "name": ""
-  }
-}
