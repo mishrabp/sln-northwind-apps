@@ -1,17 +1,23 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using System;
 
-// Add services to the container.
+namespace corenorthwindapi
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Console.WriteLine("Hello World!");
+            CreateHostBuilder(args).Build().Run();
+        }
 
-builder.Services.AddControllers();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+         Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webHost =>
+                {
+                    webHost.UseStartup<Startup>();
+                });
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+    }
+}

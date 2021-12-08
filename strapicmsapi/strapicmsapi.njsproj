@@ -1617,6 +1617,10 @@
     <Content Include=".cache\plugins\strapi-plugin-users-permissions\admin\src\utils\index.js" />
     <Content Include=".cache\plugins\strapi-plugin-users-permissions\config\layout.js" />
     <Content Include=".cache\plugins\strapi-plugin-users-permissions\package.json" />
+    <Content Include=".dockerignore">
+      <SubType>Content</SubType>
+      <DependentUpon>Dockerfile</DependentUpon>
+    </Content>
     <Content Include=".editorconfig" />
     <Content Include=".env.example" />
     <Content Include=".eslintignore" />
@@ -1706,7 +1710,7 @@
     <Content Include="config\functions\responses\404.js" />
     <Content Include="config\plugins.js" />
     <Content Include="config\server.js" />
-    <Content Include="Dockerfile" />
+    <None Include="Dockerfile" />
     <Content Include="extensions\.gitkeep" />
     <Content Include="extensions\users-permissions\config\jwt.js" />
     <Content Include="favicon.ico" />
