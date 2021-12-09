@@ -1,0 +1,47 @@
+﻿/**
+
+Instructions to add swagger to .Net Core Web API Project.
+https://swagger.io/
+**/
+
+1. Make sure that the Swashbuckle.AspNetCore package has been installed in the Web API project.
+
+> dotnet add package Swashbuckle.AspNetCore
+
+
+2. Add Swagger service in the application by writing the following code in the ConfigureServices method in startup.cs class file
+
+services.AddSwaggerGen();  
+
+
+3. In the Startup.Configure method, here we will enable the swagger middleware JSON document and the Swagger UI:
+
+app.UseSwagger();  
+app.UseSwaggerUI(c =>  
+{  
+   c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Test1 Api v1");  
+}); 
+
+
+4. (OPTIONAL) If we want to get more configuration action passed to the AddSwaggerGen method then we need to add information 
+such as the author, license, and description and in the Startup class, we need to import the following namespace:
+
+
+using Microsoft.OpenApi.Models;  
+services.AddSwaggerGen(c => {  
+    c.SwaggerDoc("v1", new OpenApiInfo {  
+        Version = "v1",  
+            Title = "Test API",  
+            Description = "A simple example for swagger api information",  
+            TermsOfService = new Uri("https://example.com/terms"),  
+            Contact = new OpenApiContact {  
+                Name = "Your Name XYZ",  
+                    Email = "xyz@gmail.com",  
+                    Url = new Uri("https://example.com"),  
+            },  
+            License = new OpenApiLicense {  
+                Name = "Use under OpenApiLicense",  
+                    Url = new Uri("https://example.com/license"),  
+            }  
+    });  
+}); 

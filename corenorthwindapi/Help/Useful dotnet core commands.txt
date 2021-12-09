@@ -1,0 +1,37 @@
+﻿/*************************************************************************************************************
+Commands for generating model class from existing SQL database tables.
+Run them from the project folder.
+**************************************************************************************************************/
+
+//Commands to add nuget .net core packages
+> dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+> dotnet add package Microsoft.EntityFrameworkCore.Design
+
+//Installs dotnet ef core to the project.
+> dotnet tool install --global dotnet-ef
+
+//get help on entity framework commands 
+> dotnet ef -h
+
+> dotnet-ef dbcontext scaffold "Server=devopsmasterlinuxvm.centralus.cloudapp.azure.com,9005;Database=Northwind;User=sa;Password=passw0rd!;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+
+/****CODE FIRST APPROACH****/
+/***************************************************************************************************************
+//From Package Manager Console, run the following command to create a migration project. 
+//It creates a folder called migration, and db generates the migration scripts in it.
+> add-migration init
+
+//Everytime, you make a change to the migration script, run the following command to post the changes to the database.
+> update-database
+
+****************************************************************************************************************/
+
+
+/*****
+//Using dotnet core scaffolding to genet controller class.
+
+dotnet-aspnet-codegenerator controller -name EmployeesController -api -m Employee -dc NorthwindDbContext -outDir Controllers
+
+
+*/
