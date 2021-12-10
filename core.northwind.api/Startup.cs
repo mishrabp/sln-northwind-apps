@@ -27,8 +27,8 @@ namespace corenorthwindapi
             //add this, if this is a Razor application
             //services.AddRazorPages();
 
-            services.AddTransient<ICustomersRepository, CustomersRepository>();
-            services.AddTransient<IEmployeesRepository, EmployeesRepository>();
+            services.AddTransient<ICustomersService, CustomersService>();
+            services.AddTransient<IEmployeesService, EmployeesService>();
             services.AddDbContext<NorthwindDbContext>(options => options.UseSqlServer(_config.GetConnectionString("NorthwindDB")));
 
             //services.AddSwaggerGen();

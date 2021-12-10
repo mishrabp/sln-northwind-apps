@@ -2,7 +2,7 @@
 
 namespace corenorthwindapi.Services
 {
-    public interface ICustomersRepository
+    public interface ICustomersService
     {
         Task<List<Customer>> GetAllAsync();
         Task<List<Customer>> GetOneAsync(string id);

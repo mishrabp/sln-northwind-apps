@@ -13,7 +13,7 @@ Run them from the project folder.
 //get help on entity framework commands 
 > dotnet ef -h
 
-> dotnet-ef dbcontext scaffold "Server=devopsmasterlinuxvm.centralus.cloudapp.azure.com,9005;Database=Northwind;User=sa;Password=passw0rd!;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+> dotnet-ef dbcontext scaffold "Server=devopsmasterlinuxvm.centralus.cloudapp.azure.com,9005;Database=Northwind;User=sa;Password=passw0rd!;" Microsoft.EntityFrameworkCore.SqlServer -o Data
 
 
 /****CODE FIRST APPROACH****/

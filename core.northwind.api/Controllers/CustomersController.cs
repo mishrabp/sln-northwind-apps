@@ -7,9 +7,9 @@ namespace corenorthwindapi.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomersRepository _customerRep;
+        private readonly ICustomersService _customerRep;
 
-        public CustomersController(ICustomersRepository customerRep)
+        public CustomersController(ICustomersService customerRep)
         {
             _customerRep = customerRep;
         }

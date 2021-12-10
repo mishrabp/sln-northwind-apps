@@ -8,9 +8,9 @@ namespace corenorthwindapi.Controllers
     public class EmployeesController : ControllerBase
     {
 
-        private readonly IEmployeesRepository _employeeRep;
+        private readonly IEmployeesService _employeeRep;
 
-        public EmployeesController(IEmployeesRepository employeeRep)
+        public EmployeesController(IEmployeesService employeeRep)
         {
             _employeeRep = employeeRep;
         }
@@ -31,11 +31,12 @@ namespace corenorthwindapi.Controllers
             return Ok(employees);
         }
 
-        // POST api/<EmployeesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST api/<EmployeesController>
+        //[HttpPost]
+        //public async Task<int> Post([FromBody] string value)
+        //{
+        //    return CreatedAtAction();
+        //}
 
         // PUT api/<EmployeesController>/5
         [HttpPut("{id}")]

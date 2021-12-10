@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace corenorthwindapi.Services
 {
-    public class CustomersRepository : ICustomersRepository
+    public class CustomersService : ICustomersService
     {
         private readonly NorthwindDbContext _context;
 
-        public CustomersRepository(NorthwindDbContext context)
+        public CustomersService(NorthwindDbContext context)
         {
             this._context = context;
         }

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace corenorthwindapi.Services
 {
-    public class EmployeesRepository : IEmployeesRepository
+    public class EmployeesService : IEmployeesService
     {
         private readonly NorthwindDbContext _context;
 
-        public EmployeesRepository(NorthwindDbContext context)
+        public EmployeesService(NorthwindDbContext context)
         {
             this._context = context;
         }
@@ -23,6 +23,17 @@ namespace corenorthwindapi.Services
         {
             return await _context.Employees.Where(x => x.EmployeeId == id).ToListAsync();
         }
+
+
+        public async Task<int> CreateAsync(Employee entity)
+        {
+            _context.Employees.Add(entity);
+            await _context.SaveChangesAsync();
+
+            return entity.EmployeeId;
+        }
+
+
     }
 
 }
