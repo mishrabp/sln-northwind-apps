@@ -30,4 +30,4 @@ EXPOSE 9095
 
 
 # Run the app
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "serve" ]

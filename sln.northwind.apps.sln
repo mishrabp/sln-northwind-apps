@@ -9,7 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core.northwind.api.unittest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96ED8121-91BE-45ED-8E7D-F3092BDD73E1}"
 	ProjectSection(SolutionItems) = preProject
-		node.strapi.cms.api\Docker.commands.txt = node.strapi.cms.api\Docker.commands.txt
 		OverviewOfSolution.txt = OverviewOfSolution.txt
 	EndProjectSection
 EndProject
@@ -31,7 +30,7 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.docker.testing", "node
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockers", "Dockers", "{EF46FC85-5083-43A9-904C-D0136496949E}"
 	ProjectSection(SolutionItems) = preProject
-		node.strapi.cms.api\Docker.commands.txt = node.strapi.cms.api\Docker.commands.txt
+		docker.commands.txt = docker.commands.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{CBB45CB5-7852-47C3-BDA5-8638A97FA7B4}"
