@@ -1,0 +1,9 @@
+{
+  "name": "node.docker.testing",
+  "version": "0.0.0",
+  "description": "node.docker.testing",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  }
+}

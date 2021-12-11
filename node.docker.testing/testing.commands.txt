@@ -1,0 +1,8 @@
+/**Run the built image in interactive mode for testing.
+
+docker run -it --rm <image name>
+
+/**discard unused images
+
+docker image prune
+

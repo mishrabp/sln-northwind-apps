@@ -1,0 +1,63 @@
+/*****
+
+Overview of the Solution.
+Multiple microservices deployed using Docker, and K8.
+- Store all sensitive information on Azure Key-Vault.
+Technologies Used: .Net Core, NodeJS, Express, EJS, MongoDB, SQL Server, Vuejs, Tailwind CSS.
+Packaging Tools: babel, and gulp
+Testing Tools: XUNIT
+
+*****/
+
+The solution has 6 components / microservices.
+
+1. node.strapi.cms.api
+Its a nodejs strapi CMS. It is integrated to MongoDB. You can use it to build an entity, and expose via AIP in no time. (For testing, IssueLogs entity created.)
+Dependencies:
+	- MongodDB: devopsmasterlinuxvm.centralus.cloudapp.azure.com:9003
+Expose on Port: 9089, 9090
+URL: ???
+
+
+2. node.express.northwind.api
+Its a web Api built on NodeJS, and Express. It exposes the APIs for Authentication, Authorization, and Logging.
+Dependencies:
+	- MongodDB: devopsmasterlinuxvm.centralus.cloudapp.azure.com:9003
+Expose on Port: 9091, 9002
+URL: ???
+
+
+3. core.northwind.api
+Its a .net core web APi.It exposes APIs to interact with Northwind SQL DB.
+Dependencies:
+	- MongodDB: devopsmasterlinuxvm.centralus.cloudapp.azure.com:9005
+Expose on Port: 9093, 9004
+URL: ???
+
+
+4. node.express.ejs.northwind.app
+Its a web Api built on NodeJS, and Express. It is to administer northwind data (like customer list, employees, suppliers, order, etc...).
+Dependencies:
+	- node.express.northwind.api
+	- core.northwind.api
+Expose on Port: 9095, 9096
+URL: ???
+
+5. core.razor.northwind.app
+Its a web Api built on .Net Core. It is to administer Issue logs. 
+Dependencies:
+	- strapi.cms.api
+Expose on Port: 9097, 9098
+URL: ???
+
+
+6. node.vuejs.northwind.app.njsproj
+Its a single page app built on vuejs. It is to view and place orders.
+Dependencies:
+	- node.express.northwind.api
+	- core.northwind.api
+Expose on Port: 9099, 10001
+URL: ???
+
+
+
