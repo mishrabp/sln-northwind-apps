@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core.northwind.api.unittest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96ED8121-91BE-45ED-8E7D-F3092BDD73E1}"
 	ProjectSection(SolutionItems) = preProject
+		build.docker.images.cmd = build.docker.images.cmd
 		OverviewOfSolution.txt = OverviewOfSolution.txt
 	EndProjectSection
 EndProject
@@ -31,6 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockers", "Dockers", "{EF46
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{CBB45CB5-7852-47C3-BDA5-8638A97FA7B4}"
+	ProjectSection(SolutionItems) = preProject
+		00.local.k8.deployment.yaml = 00.local.k8.deployment.yaml
+	EndProjectSection
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.docker.testing", "node.docker.testing\node.docker.testing.njsproj", "{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}"
 EndProject
