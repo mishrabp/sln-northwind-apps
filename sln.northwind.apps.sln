@@ -13,10 +13,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{B8CCD5A4-1613-4E4B-B102-710397531C7C}"
+	ProjectSection(SolutionItems) = preProject
+		00.azure.infrastructure.create.yaml = 00.azure.infrastructure.create.yaml
+		00.azure.infrastructure.delete.yaml = 00.azure.infrastructure.delete.yaml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraforms", "Terraforms", "{1ABD6139-6AC0-412D-8942-53F6E2FAC002}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "core.razor.northwind.app", "core.razor.northwind.app\core.razor.northwind.app.csproj", "{C6F10445-3F59-4F38-AF8C-66210AEE328A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF793636-BF5F-45CB-A21F-5FFD5D21FD7B} = {CF793636-BF5F-45CB-A21F-5FFD5D21FD7B}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockers", "Dockers", "{EF46FC85-5083-43A9-904C-D0136496949E}"
+	ProjectSection(SolutionItems) = preProject
+		docker.commands.txt = docker.commands.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{CBB45CB5-7852-47C3-BDA5-8638A97FA7B4}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.docker.testing", "node.docker.testing\node.docker.testing.njsproj", "{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.express.ejs.northwind.app", "node.express.ejs.northwind.app\node.express.ejs.northwind.app.njsproj", "{635FEAF7-73EB-47C9-896E-7B5B0B14C073}"
 EndProject
@@ -25,15 +41,6 @@ EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.strapi.cms.api", "node.strapi.cms.api\node.strapi.cms.api.njsproj", "{C26191C0-D080-48FE-B53C-32EF0592E83A}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.vuejs.northwind.app", "node.vuejs.northwind.app\node.vuejs.northwind.app.njsproj", "{B6FDEDD5-7A30-4640-BCE4-02455C5447AF}"
-EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "node.docker.testing", "node.docker.testing\node.docker.testing.njsproj", "{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockers", "Dockers", "{EF46FC85-5083-43A9-904C-D0136496949E}"
-	ProjectSection(SolutionItems) = preProject
-		docker.commands.txt = docker.commands.txt
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{CBB45CB5-7852-47C3-BDA5-8638A97FA7B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +60,10 @@ Global
 		{C6F10445-3F59-4F38-AF8C-66210AEE328A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6F10445-3F59-4F38-AF8C-66210AEE328A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6F10445-3F59-4F38-AF8C-66210AEE328A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{635FEAF7-73EB-47C9-896E-7B5B0B14C073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{635FEAF7-73EB-47C9-896E-7B5B0B14C073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{635FEAF7-73EB-47C9-896E-7B5B0B14C073}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,10 +80,6 @@ Global
 		{B6FDEDD5-7A30-4640-BCE4-02455C5447AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6FDEDD5-7A30-4640-BCE4-02455C5447AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6FDEDD5-7A30-4640-BCE4-02455C5447AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0373C2C7-4B3F-4D78-B48E-9EE477BE62B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

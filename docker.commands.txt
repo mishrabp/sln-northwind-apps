@@ -17,9 +17,11 @@ Project: core.northwind.api
 *****************************************************************/
 cd C:\Users\bibhu\$Learning\$Projects\sln-northwind-apps\core.northwind.api
 docker build . -t core.northwind.api:latest
+docker build -f "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps\core.northwind.api\Dockerfile" --force-rm -t core.northwind.api:latest "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps"
 
-docker run -p 8080:9093 -it --rm core.northwind.api
-docker run -p 8080:9093 -d --rm core.northwind.api
+
+docker run -p 49100:80 -it --rm core.northwind.api
+docker run -p 49100:80 -d --rm core.northwind.api
 
 
 
@@ -28,9 +30,11 @@ Project: core.razor.northwind.app
 *****************************************************************/
 cd C:\Users\bibhu\$Learning\$Projects\sln-northwind-apps\core.razor.northwind.app
 docker build . -t core.razor.northwind.app:latest
+docker build -f "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps\core.razor.northwind.app\Dockerfile" --force-rm -t core.razor.northwind.app:latest "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps"
 
-docker run -p 8081:9097 -it --rm core.razor.northwind.app
-docker run -p 8081:9097 -d --rm core.razor.northwind.app
+
+docker run -p 49102:80 -it --rm core.razor.northwind.app
+docker run -p 49102:80 -d --rm core.razor.northwind.app
 
 
 /*****************************************************************
@@ -38,9 +42,11 @@ Project: node.express.ejs.northwind.app
 *****************************************************************/
 cd C:\Users\bibhu\$Learning\$Projects\sln-northwind-apps\node.express.ejs.northwind.app
 docker build . -t node.express.ejs.northwind.app:latest
+docker build -f "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps\node.express.ejs.northwind.app\Dockerfile" --force-rm -t node.express.ejs.northwind.app:latest "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps"
 
-docker run -p 8082:9095 -it --rm node.express.ejs.northwind.app
-docker run -p 8082:9095 -d --rm node.express.ejs.northwind.app
+
+docker run -p 49104:80 -it --rm node.express.ejs.northwind.app
+docker run -p 49104:80 -d --rm node.express.ejs.northwind.app
 
 
 /*****************************************************************
@@ -48,9 +54,11 @@ Project: node.express.northwind.api
 *****************************************************************/
 cd C:\Users\bibhu\$Learning\$Projects\sln-northwind-apps\node.express.northwind.api
 docker build . -t node.express.northwind.api:latest
+docker build -f "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps\node.express.northwind.api\Dockerfile" --force-rm -t node.express.northwind.api:latest "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps"
 
-docker run -p 8083:9091 -it --rm node.express.northwind.api
-docker run -p 8083:9091 -d --rm node.express.northwind.api
+
+docker run -p 49106:80 -it --rm node.express.northwind.api
+docker run -p 49106:80 -d --rm node.express.northwind.api
 
 
 
@@ -59,9 +67,11 @@ Project: node.strapi.cms.api
 *****************************************************************/
 cd C:\Users\bibhu\$Learning\$Projects\sln-northwind-apps\node.strapi.cms.api
 docker build . -t node.strapi.cms.api:latest
+docker build -f "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps\node.strapi.cms.api\Dockerfile" --force-rm -t node.strapi.cms.api:latest "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps"
 
-docker run -p 8084:9089 -it --rm node.strapi.cms.api
-docker run -p 8084:9089 -d --rm node.strapi.cms.api
+
+docker run -p 49108:80 -it --rm node.strapi.cms.api
+docker run -p 49108:80 -d --rm node.strapi.cms.api
 
 
 
@@ -71,8 +81,10 @@ Project: node.vuejs.northwind.app
 *****************************************************************/
 cd C:\Users\bibhu\$Learning\$Projects\sln-northwind-apps\node.vuejs.northwind.app
 docker build . -t node.vuejs.northwind.app:latest
+docker build -f "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps\node.vuejs.northwind.app\Dockerfile" --force-rm -t node.vuejs.northwind.app:latest "C:\Users\bibhu\_Learning\_Projects\sln-northwind-apps"
 
-docker run -p 8085:8080 -it --rm node.vuejs.northwind.app
-docker run -p 8085:8080 -d --rm node.vuejs.northwind.app
+
+docker run -p 49110:80 -it --rm node.vuejs.northwind.app
+docker run -p 49110:8080 -d --rm node.vuejs.northwind.app
 
 

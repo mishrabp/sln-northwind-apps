@@ -1,10 +1,14 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
+#FROM bitnami/dotnet AS base
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+LABEL developer=bibhup_mishra@yahoo.com
+MAINTAINER Devops Engineer(bibhup_mishra@yahoo.com)
 WORKDIR /app
-EXPOSE 9093
-EXPOSE 9094
+EXPOSE 80
+EXPOSE 443
 
+#FROM bitnami/dotnet-sdk AS build
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["core.northwind.api/core.northwind.api.csproj", "core.northwind.api/"]
