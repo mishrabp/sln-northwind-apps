@@ -9,7 +9,7 @@ EXPOSE 443
 
 FROM node:12-alpine AS build
 WORKDIR /src
-COPY node.strapi.cms.api/package*.json .
+COPY package*.json .
 # Install dependencies and build app
 RUN npm install 
 
@@ -17,7 +17,7 @@ RUN npm install
 
 FROM build AS publish
 # Bundle app source
-COPY node.strapi.cms.api/. .
+COPY . .
 RUN npm run build
 
 

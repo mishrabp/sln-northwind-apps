@@ -36,7 +36,7 @@ namespace corenorthwindapi
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Test API",
+                    Title = "WebAPI: core.northwind.api",
                     Description = "A simple example for swagger api information",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
@@ -63,6 +63,14 @@ namespace corenorthwindapi
             {
                 app.UseDeveloperExceptionPage();
             }
+            //Setting the Default Files
+            app.UseDefaultFiles();
+            //Adding Static Files Middleware to serve the static files
+            app.UseStaticFiles();
+            //app.Run(async (context) =>
+            //{
+            ///    await context.Response.WriteAsync("Request handled by the terminating middleware");
+            //});
 
             app.UseRouting();
 
