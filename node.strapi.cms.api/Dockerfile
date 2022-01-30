@@ -26,11 +26,11 @@ COPY --from=publish /src .
 # Set environment variable default value
 ENV DATABASE_HOST="devopsmasterlinuxvm.centralus.cloudapp.azure.com" \
 DATABASE_SRV=false \
-DATABASE_PORT=9003 \
+DATABASE_PORT=30090 \
 DATABASE_NAME=strapicms \
-DATABASE_USERNAME=mongoadmin \
+DATABASE_USERNAME=strapiuser \
 DATABASE_PASSWORD="passw0rd!" \
-AUTHENTICATION_DATABASE="" \
+AUTHENTICATION_DATABASE="strapicms" \
 DATABASE_SSL=false
 # Run the app
 CMD [ "npm", "start" ]
