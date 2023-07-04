@@ -1,5 +1,5 @@
 # Specifies which OS to use. Here it is unix OS pre-installed with node v-12
-FROM ubuntu:latest
+FROM ubuntu:22.10
 LABEL developer=bibhup_mishra@yahoo.com
 MAINTAINER Devops Engineer(bibhup_mishra@yahoo.com)
 RUN apt-get update -y && \
